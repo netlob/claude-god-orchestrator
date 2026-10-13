@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+._*
+
+# Personal Claude Code settings (shared settings live in .claude/settings.json)
+.claude/settings.local.json
+
+# Secrets never belong in this folder
+.env
+*.key
+*.pem
+
+# Large media stays outside this folder; a note with a link goes in sources/ instead
+*.mp3
+*.wav
+*.aiff
+*.m4a
+*.flac
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.psd
+*.ai
+*.indd
+*.zip
+*.dmg

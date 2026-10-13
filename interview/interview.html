@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home base interview</title>
+<style>
+  :root {
+    --bg: #faf9f6; --fg: #1d1d1b; --muted: #6b6a66; --line: #e2e0da;
+    --box: #ffffff; --accent: #2f5d50; --accent-fg: #ffffff; --ok: #2f7d4f; --warn: #a8571a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #171716; --fg: #ececea; --muted: #a2a19c; --line: #33332f;
+            --box: #202020; --accent: #7fb8a4; --accent-fg: #0f1c17; --ok: #7fcf9a; --warn: #e8a265; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 19px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 40px 16px 120px; }
+  h1 { font-size: 34px; margin: 0 0 8px; }
+  .lead { color: var(--muted); margin: 0 0 28px; }
+  .lead strong { color: var(--fg); }
+  .bar { position: sticky; top: 0; background: var(--bg); padding: 12px 0; border-bottom: 1px solid var(--line);
+         display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 16px; color: var(--muted); z-index: 2; }
+  .q { margin: 36px 0; }
+  .q h2 { font-size: 23px; margin: 0 0 6px; }
+  .q .hint { color: var(--muted); margin: 0 0 12px; font-size: 17px; }
+  textarea { width: 100%; min-height: 170px; padding: 14px; font: inherit; color: var(--fg); background: var(--box);
+             border: 1px solid var(--line); border-radius: 10px; resize: vertical; }
+  textarea:focus, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .choices label { display: block; padding: 10px 14px; margin: 6px 0; border: 1px solid var(--line); border-radius: 10px;
+                   background: var(--box); cursor: pointer; }
+  .choices input { margin-right: 10px; transform: scale(1.3); }
+  .actions { margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  button { font: inherit; font-size: 18px; padding: 12px 20px; border-radius: 10px; border: 1px solid var(--accent);
+           background: var(--box); color: var(--fg); cursor: pointer; }
+  button.primary { background: var(--accent); color: var(--accent-fg); font-weight: 600; }
+  button.quiet { border-color: var(--line); color: var(--muted); margin-left: auto; }
+  #status { font-size: 16px; color: var(--muted); min-height: 1.4em; margin-top: 14px; }
+  #status.ok { color: var(--ok); } #status.warn { color: var(--warn); }
+  #fallback { display: none; margin-top: 16px; }
+  #fallback textarea { min-height: 220px; font-family: ui-monospace, Menlo, monospace; font-size: 15px; }
+  .after { margin-top: 28px; padding: 16px; border: 1px dashed var(--line); border-radius: 10px; color: var(--muted); font-size: 17px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Home base interview</h1>
+  <p class="lead">Ten questions. Turn on voice dictation and talk freely; long and messy is good. <strong>Your answers save as you type</strong>, in this browser on this computer, so you can close this and come back. No internet needed.</p>
+
+  <div class="bar"><span id="progress">0 of 10 answered</span><span id="saved"></span></div>
+
+  <form id="form" onsubmit="return false">
+    <section class="q" data-key="plan">
+      <h2>1. Which Claude plan are you on?</h2>
+      <p class="hint">In the Claude app this is under Settings. Pick the closest.</p>
+      <div class="choices">
+        <label><input type="radio" name="plan" value="Pro"> Pro</label>
+        <label><input type="radio" name="plan" value="Max"> Max</label>
+        <label><input type="radio" name="plan" value="Team or Enterprise"> Team or Enterprise</label>
+        <label><input type="radio" name="plan" value="Not sure"> Not sure</label>
+      </div>
+    </section>
+
+    <section class="q" data-key="role">
+      <h2>2. Who are you and what do you do?</h2>
+      <p class="hint">Your role, the company, what a normal week looks like. What takes most of your time, and what you wish took less.</p>
+      <textarea name="role"></textarea>
+    </section>
+
+    <section class="q" data-key="plate">
+      <h2>3. What is on your plate right now?</h2>
+      <p class="hint">Every project, artist, campaign, venture or idea you are working on. For each one: where it stands and what is next. Say names slowly or spell them.</p>
+      <textarea name="plate"></textarea>
+    </section>
+
+    <section class="q" data-key="make">
+      <h2>4. What do you make, and for whom?</h2>
+      <p class="hint">The things you produce (pitch decks, campaigns, contracts, films, releases, reports) and who receives them. What does good look like?</p>
+      <textarea name="make"></textarea>
+    </section>
+
+    <section class="q" data-key="tools">
+      <h2>5. Where does your information live, and which tools do you use?</h2>
+      <p class="hint">Email, WhatsApp, Drive, Notion, spreadsheets, meeting transcripts, voice memos on your phone. Where do things get lost?</p>
+      <textarea name="tools"></textarea>
+    </section>
+
+    <section class="q" data-key="people">
+      <h2>6. Who do you work with?</h2>
+      <p class="hint">Artists, colleagues, managers, labels, agencies, clients. Spell the names. How do you work together, and who decides what?</p>
+      <textarea name="people"></textarea>
+    </section>
+
+    <section class="q" data-key="thinking">
+      <h2>7. How do you think and decide, and how should Claude work with you?</h2>
+      <p class="hint">Should it push back, just do it, explain a lot or a little? What do you want to learn along the way?</p>
+      <textarea name="thinking"></textarea>
+    </section>
+
+    <section class="q" data-key="ai">
+      <h2>8. How do you use AI today, and what frustrates you?</h2>
+      <p class="hint">What works, what does not, what you have given up on.</p>
+      <textarea name="ai"></textarea>
+    </section>
+
+    <section class="q" data-key="ninety">
+      <h2>9. The next ninety days</h2>
+      <p class="hint">What should be different by then? And what would make this a clear win after one month?</p>
+      <textarea name="ninety"></textarea>
+    </section>
+
+    <section class="q" data-key="limits">
+      <h2>10. Anything sensitive or off limits?</h2>
+      <p class="hint">Things that should not be written down, people whose details should stay out, contracts that need care.</p>
+      <textarea name="limits"></textarea>
+    </section>
+
+    <div class="actions">
+      <button type="button" class="primary" id="download">Download my answers</button>
+      <button type="button" id="copy">Copy instead</button>
+      <button type="button" class="quiet" id="clear">Clear all answers</button>
+    </div>
+    <div id="status"></div>
+    <div id="fallback">
+      <p>Copying did not work in this browser. The text below is selected: press ⌘C (or Ctrl+C) to copy it.</p>
+      <textarea id="fallbackText" readonly></textarea>
+    </div>
+  </form>
+
+  <div class="after"><strong>Next:</strong> move the downloaded file into the <code>inbox</code> folder of your home base, then open the folder in Claude Code and paste the message from START-HERE.</div>
+</main>
+
+<script>
+(function () {
+  var PREFIX = 'homebase-interview-v1:';
+  var form = document.getElementById('form');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.q'));
+  var status = document.getElementById('status');
+  var savedEl = document.getElementById('saved');
+  var storageOk = true;
+
+  function store(key, value) {
+    try { localStorage.setItem(PREFIX + key, value); storageOk = true; }
+    catch (e) { storageOk = false; }
+  }
+  function load(key) {
+    try { return localStorage.getItem(PREFIX + key) || ''; } catch (e) { storageOk = false; return ''; }
+  }
+  function title(section) { return section.querySelector('h2').textContent.replace(/^\d+\.\s*/, ''); }
+  function value(section) {
+    var key = section.getAttribute('data-key');
+    var radio = section.querySelector('input[type=radio]:checked');
+    if (radio) return radio.value;
+    var ta = section.querySelector('textarea');
+    return ta ? ta.value.trim() : '';
+  }
+  function setStatus(text, cls) { status.textContent = text; status.className = cls || ''; }
+  function grow(ta) { ta.style.height = 'auto'; ta.style.height = Math.max(170, ta.scrollHeight + 4) + 'px'; }
+
+  function updateProgress() {
+    var n = sections.filter(function (s) { return value(s) !== ''; }).length;
+    document.getElementById('progress').textContent = n + ' of ' + sections.length + ' answered';
+  }
+  function markSaved() {
+    var t = new Date();
+    savedEl.textContent = storageOk ? 'Saved ' + t.toTimeString().slice(0, 5)
+      : 'Not saving in this browser. Download before you close.';
+    savedEl.style.color = storageOk ? '' : 'var(--warn)';
+  }
+
+  // Restore
+  sections.forEach(function (s) {
+    var key = s.getAttribute('data-key');
+    var v = load(key);
+    var ta = s.querySelector('textarea');
+    if (ta) { ta.value = v; grow(ta); }
+    else if (v) { var r = s.querySelector('input[value="' + v.replace(/"/g, '') + '"]'); if (r) r.checked = true; }
+  });
+  updateProgress();
+  if (!storageOk) markSaved();
+
+  // Save on every change
+  form.addEventListener('input', function (e) {
+    var s = e.target.closest('.q'); if (!s) return;
+    store(s.getAttribute('data-key'), value(s));
+    if (e.target.tagName === 'TEXTAREA') grow(e.target);
+    updateProgress(); markSaved();
+  });
+
+  function markdown() {
+    var d = new Date(), pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var date = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    var out = ['# Interview answers', '', 'Date: ' + date, 'Claude plan: ' + (value(sections[0]) || 'not answered'), ''];
+    sections.forEach(function (s, i) {
+      out.push('## ' + (i + 1) + '. ' + title(s), '', value(s) || '(not answered)', '');
+    });
+    return { text: out.join('\n'), date: date };
+  }
+
+  document.getElementById('download').addEventListener('click', function () {
+    var md = markdown();
+    var blob = new Blob([md.text], { type: 'text/markdown;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'interview-answers-' + md.date + '.md';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+    setStatus('Downloaded "' + a.download + '". Move it into the inbox folder of your home base.', 'ok');
+  });
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var text = markdown().text;
+    var fallback = function () {
+      var box = document.getElementById('fallback'); box.style.display = 'block';
+      var ta = document.getElementById('fallbackText'); ta.value = text; ta.focus(); ta.select();
+      setStatus('', '');
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        setStatus('Copied. Paste it into Claude Code, or into a file in the inbox folder.', 'ok');
+      }, fallback);
+    } else { fallback(); }
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear all answers? This cannot be undone.')) return;
+    sections.forEach(function (s) {
+      var key = s.getAttribute('data-key');
+      try { localStorage.removeItem(PREFIX + key); } catch (e) {}
+      var ta = s.querySelector('textarea'); if (ta) { ta.value = ''; grow(ta); }
+      s.querySelectorAll('input[type=radio]').forEach(function (r) { r.checked = false; });
+    });
+    updateProgress(); setStatus('Cleared.', '');
+    savedEl.textContent = '';
+  });
+})();
+</script>
+</body>
+</html>
